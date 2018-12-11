@@ -1,0 +1,119 @@
+<!-- HIT template: Sentiment-v3.0 --><!-- The following snippet enables the 'responsive' behavior on smaller screens -->
+<meta content="width=device-width,initial-scale=1" name="viewport" />
+<section class="container" id="Sentiment"><!-- Instructions (collapsible) -->
+<div class="row">
+<div class="col-xs-12 col-md-12">
+<div class="panel panel-primary"><!-- WARNING: the ids "collapseTrigger" and "instructionBody" are being used to enable expand/collapse feature --><a class="panel-heading" href="javascript:void(0);" id="collapseTrigger"><strong>Instructions</strong> <span class="collapse-text">(Click to expand)</span> </a>
+<div class="panel-body" id="instructionBody"><strong>Pick the best genre based on the plot description. Please do not use outside resources. </strong></div>
+</div>
+</div>
+</div>
+<!-- End instructions --><!-- Categorization Layout -->
+
+<h3><a href="http://www.cs.virginia.edu/~pcascante/plots/${image_url}.txt">Click to See the Plot of the Movie</a></h3>
+
+<div class="form-group"><label class="col-md-4 control-label" for="radios">Have you seen this movie before? </label>
+
+<div class="col-md-4"><label class="radio-inline" for="radios-0"><input checked="checked" id="radios-0" name="radios" type="radio" value="1" /> Yes </label> <label class="radio-inline" for="radios-1"> <input id="radios-1" name="radios" type="radio" value="2" /> No </label></div>
+</div>
+
+<div class="col-xs-12 col-sm-4 fields">
+<div class="form-group"><!-- Question for the Worker --><label class="group-label">Choose categories:</label> <!-- Input from the Worker --> <!-- Multiple Checkboxes -->
+
+<div class="form-group"><label class="col-md-4 control-label" for="checkboxes">What genre of the movie do you think this is?</label>
+
+<div class="col-md-8 col-lg-8">
+<div class="checkbox"><label for="checkboxes-0"><input id="checkboxes-0" name="checkboxes" type="checkbox" value="" /> Action </label></div>
+
+<div class="checkbox"><label for="checkboxes-1"><input id="checkboxes-1" name="checkboxes" type="checkbox" value="" /> Animation </label></div>
+
+<div class="checkbox"><label for="checkboxes-2"><input id="checkboxes-2" name="checkboxes" type="checkbox" value="" /> Biography </label></div>
+
+<div class="checkbox"><label for="checkboxes-3"><input id="checkboxes-3" name="checkboxes" type="checkbox" value="" /> Comedy </label></div>
+
+<div class="checkbox"><label for="checkboxes-4"><input id="checkboxes-4" name="checkboxes" type="checkbox" value="" /> Crime </label></div>
+
+<div class="checkbox"><label for="checkboxes-5"><input id="checkboxes-5" name="checkboxes" type="checkbox" value="" /> Drama </label></div>
+
+<div class="checkbox"><label for="checkboxes-6"><input id="checkboxes-6" name="checkboxes" type="checkbox" value="" /> Family </label></div>
+
+<div class="checkbox"><label for="checkboxes-7"><input id="checkboxes-7" name="checkboxes" type="checkbox" value="" /> Fantasy </label></div>
+
+<div class="checkbox"><label for="checkboxes-8"><input id="checkboxes-8" name="checkboxes" type="checkbox" value="" /> Horror </label></div>
+
+<div class="checkbox"><label for="checkboxes-9"><input id="checkboxes-9" name="checkboxes" type="checkbox" value="" /> Mystery </label></div>
+
+<div class="checkbox"><label for="checkboxes-10"><input id="checkboxes-10" name="checkboxes" type="checkbox" value="" /> Romance </label></div>
+
+<div class="checkbox"><label for="checkboxes-11"><input id="checkboxes-11" name="checkboxes" type="checkbox" value="" /> Sci-fi </label></div>
+
+<div class="checkbox"><label for="checkboxes-12"><input id="checkboxes-12" name="checkboxes" type="checkbox" value="" /> Thriller </label></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- End Categorization Layout --><!-- Please note that Bootstrap CSS/JS and JQuery are 3rd party libraries that may update their url/code at any time. Amazon Mechanical Turk (MTurk) is including these libraries as a default option for you, but is not responsible for any changes to the external libraries --><!-- External CSS references -->
+<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet" /><!-- Open internal style sheet -->
+<style type="text/css">#collapseTrigger{
+    color:#fff;
+    display: block;
+    text-decoration: none;
+  }
+  #submitButton{
+    white-space: normal;
+  }
+  #instructionBody table{
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  #instructionBody table caption{
+    text-align: left;
+    padding: 0 0 5px 0;
+  }
+  #Inputs{
+    display: block;
+    margin-top: 10px;
+  }
+  .content{
+    margin-bottom: 15px;
+  }
+  .radio:first-of-type{
+    margin-top: -5px;
+  }
+</style>
+<!-- Close internal style sheet --><!-- External JS references --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Open internal javascript --><script>
+    $(document).ready(function() {
+      // Instructions expand/collapse
+      var content = $('#instructionBody');
+      var trigger = $('#collapseTrigger');
+      content.hide();
+      $('.collapse-text').text('(Click to expand)');
+      trigger.click(function(){
+        content.toggle();
+        var isVisible = content.is(':visible');
+        if(isVisible){
+          $('.collapse-text').text('(Click to collapse)');
+        }else{
+          $('.collapse-text').text('(Click to expand)');
+        }
+      });
+      // end expand/collapse
+
+      // highlight selected category
+      var inputs = $("#Inputs input:radio");
+      inputs.change(function(){
+        inputs.parent().removeClass("btn-success");
+        inputs.parent().addClass("btn-default");
+        if($(this).is(":checked")){
+          $(this).parent().removeClass("btn-default");
+          $(this).parent().addClass("btn-success");
+        }else{
+          $(this).parent().removeClass("btn-success");
+          $(this).parent().addClass("btn-default");
+        }
+      });
+      // end highlight
+    });	
+
+  </script><!-- Close internal javascript -->
